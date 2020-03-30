@@ -1,4 +1,4 @@
-const fs = require('fs');
+import fs from 'fs';
 import { Client } from 'discord.js';
 
 const client = new Client();
