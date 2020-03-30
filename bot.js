@@ -5,7 +5,7 @@ client.on('ready', () => {
     console.log('I am ready!');
 });
 
-client.on('message', message => {
+client.on('message', async message => {
     if (message.content === 'ping') {
         // message.reply('pong');
         exec(`python -c "print(1+1)"`, (error, stdout, stderr) => {
