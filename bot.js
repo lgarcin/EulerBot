@@ -23,7 +23,7 @@ Stdout
 \`\`\`python
 ${stdout}
 \`\`\`
-            `
+`
             );
         });
 
