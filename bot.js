@@ -1,32 +1,37 @@
+const fs = require('fs');
 import { Client } from 'discord.js';
+
 const client = new Client();
-import { exec } from "child_process";
+
+client.commands = new Discord.Collection();
+
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+
+for (const file of commandFiles) {
+    const command = require(`./commands/${file}`);
+    client.commands.set(command.name, command);
+}
 
 client.on('ready', () => {
     console.log('I am ready!');
 });
 
 client.on('message', async message => {
-    if (message.content === 'ping') {
-        // message.reply('pong');
-        exec(`python -c "print(1+1)"`, (error, stdout, stderr) => {
-            if (error) {
-                console.error(`exec error: ${error}`);
-                return;
-            }
-            message.reply(
-                `
-\`\`\`python
-print(1+1)
-\`\`\`
-Stdout
-\`\`\`python
-${stdout}
-\`\`\`
-`
-            );
-        });
+    if (message.author.bot) return;
 
+    const match = message.content.match(/^!python[\r\n\s]+(.*?)$/s);
+    if (match) {
+        const command = 'python';
+        const args = match[1];
+    }
+
+    if (!client.commands.has(command)) return;
+
+    try {
+        client.commands.get(command).execute(message, args);
+    } catch (error) {
+        console.error(error);
+        message.reply('there was an error trying to execute that command!');
     }
 });
 
