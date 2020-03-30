@@ -1,17 +1,18 @@
-import { exec } from "child_process";
+const { exec } = require('child_process');
 
-export const name = 'python';
+module.exports = {
+	name: 'python',
 
-export const description = 'Execute python message';
+	description: 'Execute python message',
 
-export function execute(message, args) {
-    exec(`python -c "print(1+1)"`, (error, stdout, stderr) => {
-        if (error) {
-            console.error(`exec error: ${error}`);
-            return;
-        }
-        message.reply(
-            `
+	execute(message, args) {
+		exec(`python -c "${args}"`, (error, stdout, stderr) => {
+			if (error) {
+				console.error(`exec error: ${error}`);
+				return;
+			}
+			message.reply(
+				`
 \`\`\`python
 ${args}
 \`\`\`
@@ -19,7 +20,12 @@ Stdout
 \`\`\`python
 ${stdout}
 \`\`\`
-`
-        );
-    });
-}
+Stderr
+\`\`\`python
+${stderr}
+\`\`\`
+`,
+			);
+		});
+	},
+};

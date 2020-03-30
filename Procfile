@@ -1,1 +1,1 @@
-worker: node --experimental-modules bot.js
+worker: node bot.js
