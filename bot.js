@@ -15,15 +15,14 @@ client.on('message', async message => {
                 return;
             }
             message.reply(
-                message,
                 `
-      \`\`\`python
-      print(1+1)
-      \`\`\`
-      Stdout
-      \`\`\`python
-      ${stdout}
-      \`\`\`
+\`\`\`python
+print(1+1)
+\`\`\`
+Stdout
+\`\`\`python
+${stdout}
+\`\`\`
             `
             );
         });
