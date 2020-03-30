@@ -7,7 +7,26 @@ client.on('ready', () => {
 
 client.on('message', message => {
     if (message.content === 'ping') {
-    	message.reply('pong');
+        // message.reply('pong');
+        exec(`python -c "print(1+1)"`, (error, stdout, stderr) => {
+            if (error) {
+              console.error(`exec error: ${error}`);
+              return;
+            }
+            message.reply(
+              message,
+              `
+      \`\`\`python
+      ${code}
+      \`\`\`
+      Stdout
+      \`\`\`python
+      ${stdout}
+      \`\`\`
+            `
+            );
+          });
+      
   	}
 });
 
