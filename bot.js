@@ -1,6 +1,6 @@
-const Discord = require('discord.js');
-const client = new Discord.Client();
-const { exec } = require("child_process");
+import { Client } from 'discord.js';
+const client = new Client();
+import { exec } from "child_process";
 
 client.on('ready', () => {
     console.log('I am ready!');
