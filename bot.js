@@ -18,7 +18,7 @@ client.on('message', async message => {
                 message,
                 `
       \`\`\`python
-      ${code}
+      print(1+1)
       \`\`\`
       Stdout
       \`\`\`python
