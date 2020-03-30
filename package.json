@@ -1,13 +1,13 @@
 {
-  "name": "EulerBot",
-  "description": "EulerBot",
+  "name": "eulerbot",
+  "description": "eulerbot",
   "version": "0.0.0",
   "main": "bot.js",
   "scripts": {
     "start": "node bot.js"
   },
   "dependencies": {
-    "discord.js": "11.1.0",
-    "request": "2.81.0"
+    "discord.js": "12.1.1",
+    "request": "2.88.2"
   }
 }
