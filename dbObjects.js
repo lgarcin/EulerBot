@@ -10,10 +10,6 @@ const sequelize = new Sequelize('database', 'username', 'password', {
 const Users = sequelize.import('models/Users');
 const Replies = sequelize.import('models/Replies');
 
-Users.prototype.setKatexOptions = (user_id, katexOptions) => {
-	Users.upsert({ user_id, katexOptions });
-};
-
 Replies.prototype.getReplies = reply_to_id => {
 	return Replies.findAll({
 		where: { reply_to_id },
