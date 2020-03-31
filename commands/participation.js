@@ -4,9 +4,9 @@ module.exports = {
 	description: 'Participation',
 
 	async execute(message) {
-		console.log(Object.getOwnPropertyNames(message.mentions.members.size == 0
+		console.log(await (message.mentions.members.size == 0
 			? message.guild.members
-			: message.mentions.members),
+			: message.mentions.members).fetch(),
 		);
 		const members = (message.mentions.members.size == 0
 			? message.guild.members
