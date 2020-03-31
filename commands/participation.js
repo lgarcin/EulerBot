@@ -4,6 +4,10 @@ module.exports = {
 	description: 'Participation',
 
 	async execute(message) {
+		console.log((message.mentions.members.size == 0
+			? message.guild.members
+			: message.mentions.members)
+		);
 		const members = (message.mentions.members.size == 0
 			? message.guild.members
 			: message.mentions.members
