@@ -20,7 +20,7 @@ module.exports = {
 			Users.upsert({ user_id: message.author.id, katexOptions: JSON.stringify(katexOptions) });
 			message
 				.reply('KaTeX Gist stored\n' + JSON.stringify(katexOptions))
-				.then(msg => msg.delete(5000));
+				.then(msg => msg.delete({ timeout: 5000 }));
 		}
 		catch { message.reply('Wrong Gist id'); }
 	},
