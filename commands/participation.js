@@ -19,7 +19,7 @@ module.exports = {
 
 		const response = Array.from(
 			channels
-				.flatMap(async channel => await channel.messages.fetch())
+				.flatMap(async channel => await channel.messages.fetch({ limit: 10 }))
 				.filter(msg => part.has(msg.member))
 				.reduce((acc, msg) => acc.set(msg.member, acc.get(msg.member) + 1), part))
 			.sort(([, n1], [, n2]) => n2 - n1)
