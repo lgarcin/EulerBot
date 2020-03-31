@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { Users } = require('./dbObjects.js');
+const { Users } = require('../dbObjects.js');
 
 module.exports = {
 	name: 'katex',
@@ -17,7 +17,7 @@ module.exports = {
 				{},
 				...Object.values(files).map(file => JSON.parse(file.content)),
 			);
-			Users.addKatexOptions(katexOptions);
+			Users.setKatexOptions(katexOptions);
 			message
 				.reply('KaTeX Gist stored\n' + JSON.stringify(katexOptions))
 				.then(msg => msg.delete(5000));

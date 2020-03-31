@@ -10,7 +10,7 @@ const sequelize = new Sequelize('database', 'username', 'password', {
 const Users = sequelize.import('models/Users');
 const Replies = sequelize.import('models/Replies');
 
-Users.prototype.addKatexOptions = (user_id, katexOptions) => {
+Users.prototype.setKatexOptions = (user_id, katexOptions) => {
 	Users.upsert({ user_id, katexOptions });
 };
 
