@@ -17,25 +17,24 @@ module.exports = {
 			members.filter(member => !member.user.bot).map(member => [member, 0]),
 		);
 
-		const results = await Promise.allSettled(channels.map(channel => channel.messages.fetch({ limit: 10 })));
-		const fm = Array.from(results.filter(result => result.status === 'fulfilled')
+		const results = await Promise.allSettled(channels.map(channel => channel.messages.fetch()));
+		const response = Array.from(results.filter(result => result.status === 'fulfilled')
 			.flatMap(result => result.value)
 			.filter(msg => part.has(msg.member))
 			.reduce((acc, msg) => acc.set(msg.member, acc.get(msg.member) + 1), part))
 			.sort(([, n1], [, n2]) => n2 - n1)
 			.map(([member, nb_messages]) => member.user.username + ' ' + nb_messages)
 			.join('\n');
-		console.log(fm);
 
-		const response = Array.from(
-			channels
-				.flatMap(channel => channel.messages.cache)
-				// .flatMap(async channel => await channel.messages.fetch({ limit: 10 }))
-				.filter(msg => part.has(msg.member))
-				.reduce((acc, msg) => acc.set(msg.member, acc.get(msg.member) + 1), part))
-			.sort(([, n1], [, n2]) => n2 - n1)
-			.map(([member, nb_messages]) => member.user.username + ' ' + nb_messages)
-			.join('\n');
+		// const response = Array.from(
+		// 	channels
+		// 		.flatMap(channel => channel.messages.cache)
+		// 		// .flatMap(async channel => await channel.messages.fetch({ limit: 10 }))
+		// 		.filter(msg => part.has(msg.member))
+		// 		.reduce((acc, msg) => acc.set(msg.member, acc.get(msg.member) + 1), part))
+		// 	.sort(([, n1], [, n2]) => n2 - n1)
+		// 	.map(([member, nb_messages]) => member.user.username + ' ' + nb_messages)
+		// 	.join('\n');
 
 		message.reply(response);
 	},
