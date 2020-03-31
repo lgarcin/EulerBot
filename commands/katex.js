@@ -21,7 +21,6 @@ module.exports = {
 			message
 				.reply('KaTeX Gist stored\n' + JSON.stringify(katexOptions))
 				.then(msg => msg.delete({ timeout: 5000 }));
-			console.log(await Users.findAll({ where: { user_id: message.author.id } }));
 		}
 		catch { message.reply('Wrong Gist id'); }
 	},

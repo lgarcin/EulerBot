@@ -37,6 +37,10 @@ client.on('message', async message => {
 		commandName = 'katex';
 		args = match[1];
 	}
+	match = message.content.match(/^!participation$/);
+	if (match) {
+		commandName = 'participation';
+	}
 
 
 	if (!client.commands.has(commandName)) return;
