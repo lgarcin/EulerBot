@@ -17,11 +17,11 @@ module.exports = {
 				{},
 				...Object.values(files).map(file => JSON.parse(file.content)),
 			);
-			Users.upsert({ user_id: message.author.id, katexOptions });
+			Users.upsert({ user_id: message.author.id, katexOptions: JSON.stringify(katexOptions) });
 			message
 				.reply('KaTeX Gist stored\n' + JSON.stringify(katexOptions))
 				.then(msg => msg.delete(5000));
 		}
-		catch (e) { message.reply('Wrong Gist id'); message.reply(e.toString()); }
+		catch { message.reply('Wrong Gist id'); }
 	},
 };
