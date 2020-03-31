@@ -17,16 +17,13 @@ module.exports = {
 			members.filter(member => !member.user.bot).map(member => [member, 0]),
 		);
 
-		console.log(channels
-			.flatMap(channel => channel.messages.cache));
-
 		const response = Array.from(
 			channels
-				.flatMap(channel => channel.messages.cache)
+				.flatMap(async channel => await channel.messages.fetch())
 				.filter(msg => part.has(msg.member))
 				.reduce((acc, msg) => acc.set(msg.member, acc.get(msg.member) + 1), part))
 			.sort(([, n1], [, n2]) => n2 - n1)
-			.map(([member, nb_messages]) => member.user + ' ' + nb_messages)
+			.map(([member, nb_messages]) => member.user.username + ' ' + nb_messages)
 			.join('\n');
 
 		message.reply(response);
