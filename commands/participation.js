@@ -17,7 +17,7 @@ module.exports = {
 			members.filter(member => !member.user.bot).map(member => [member, 0]),
 		);
 
-		const promises = channels.flatMap(channel => [1, 2]);
+		const promises = channels.map(channel => [1, 2]);
 		console.log('OK');
 		const arr = await Promise.all(promises);
 		console.log(arr);
