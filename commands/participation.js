@@ -20,7 +20,7 @@ module.exports = {
 		const results = await Promise.allSettled(channels.map(channel => channel.messages.fetch()));
 
 		console.log(results.filter(result => result.status === 'fulfilled')
-			.flatMap(result => result.value).map(msg => msg.member));
+			.flatMap(result => result.value));
 
 		const response = Array.from(results.filter(result => result.status === 'fulfilled')
 			.flatMap(result => result.value)
