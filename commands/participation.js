@@ -17,7 +17,7 @@ module.exports = {
 			members.filter(member => !member.user.bot).map(member => [member, 0]),
 		);
 
-		console.log(channels.flatMap(_channel => [[1]]));
+		channels.each(channel => console.log(channel.name));
 
 		const response = Array.from(
 			channels
