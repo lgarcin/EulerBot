@@ -25,7 +25,7 @@ module.exports = {
 		// 	.flatMap(result => result.value.values()));
 
 		const response = Array.from(results.filter(result => result.status === 'fulfilled')
-			.flatMap(result => result.value.values())
+			.flatMap(result => [...result.value.values()])
 			.map(msg => msg.member)
 			.filter(member => part.has(member))
 			.reduce((acc, member) => acc.set(member, acc.get(member) + 1), part))
