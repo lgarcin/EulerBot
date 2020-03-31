@@ -17,7 +17,7 @@ module.exports = {
 				{},
 				...Object.values(files).map(file => JSON.parse(file.content)),
 			);
-			Users.upsert({ user_id: message.author.id, katexOptions: JSON.stringify(katexOptions) });
+			await Users.upsert({ user_id: message.author.id, katexOptions: JSON.stringify(katexOptions) });
 			message
 				.reply('KaTeX Gist stored\n' + JSON.stringify(katexOptions))
 				.then(msg => msg.delete({ timeout: 5000 }));
