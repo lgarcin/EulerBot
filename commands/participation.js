@@ -17,9 +17,9 @@ module.exports = {
 			members.filter(member => !member.user.bot).map(member => [member, 0]),
 		);
 
-		const results = await Promise.allSettled(channels.flatMap(channel => channel.messages.fetch({ limit: 2 })));
+		const results = await Promise.allSettled(channels.map(channel => channel.messages.fetch({ limit: 2 })));
 
-		console.log(JSON.stringify(results.filter(result => result.status === 'fulfilled').map(result => result.value)));
+		console.log(results.filter(result => result.status === 'fulfilled').map(result => result.value));
 
 		// console.log(results.filter(result => result.status === 'fulfilled')
 		// 	.flatMap(result => result.value.values()));
