@@ -17,14 +17,7 @@ module.exports = {
 			members.filter(member => !member.user.bot).map(member => [member, 0]),
 		);
 
-		channels.flatMap(async channel => {
-			try {
-				return await channel.messages.fetch({ limit: 10 });
-			}
-			catch{
-				console.log('Problème');
-			}
-		});
+		console.log((await Promise.all(channels.flatMap(async channel => await channel.messages.fetch({ limit: 10 })))).size);
 
 		const response = Array.from(
 			channels
