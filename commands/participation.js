@@ -8,10 +8,10 @@ module.exports = {
 			? message.guild.members
 			: message.mentions.members).fetch()).filter(member => !member.user.bot)),
 		);
-		const members = (message.mentions.members.size == 0
+		const members = (await (message.mentions.members.size == 0
 			? message.guild.members
 			: message.mentions.members
-		).filter(member => !member.user.bot);
+		).fetch()).filter(member => !member.user.bot);
 		const channels = (message.mentions.channels.size == 0
 			? message.guild.channels
 			: message.mentions.channels
