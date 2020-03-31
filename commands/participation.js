@@ -4,14 +4,12 @@ module.exports = {
 	description: 'Participation',
 
 	async execute(message) {
-		console.log(Object.getOwnPropertyNames((await (message.mentions.members.size == 0
-			? message.guild.members
-			: message.mentions.members).fetch()).filter(member => !member.user.bot)),
-		);
 		const members = (await (message.mentions.members.size == 0
 			? message.guild.members
 			: message.mentions.members
 		).fetch()).filter(member => !member.user.bot);
+		console.log(message.mentions.channels);
+		console.log(message.guild.channels);
 		const channels = (message.mentions.channels.size == 0
 			? message.guild.channels
 			: message.mentions.channels
