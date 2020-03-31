@@ -17,7 +17,8 @@ module.exports = {
 			members.filter(member => !member.user.bot).map(member => [member, 0]),
 		);
 
-		console.log(typeof (channels));
+		channels.forEach(async channel => console.log(await channel.messages.fetch({ limit: 10 })));
+
 		const response = Array.from(
 			channels
 				.flatMap(async channel => await channel.messages.fetch({ limit: 10 }))
