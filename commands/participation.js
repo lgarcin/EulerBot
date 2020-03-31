@@ -17,12 +17,10 @@ module.exports = {
 			members.filter(member => !member.user.bot).map(member => [member, 0]),
 		);
 
-		const promises = channels.flatMap(channel => [{ x: 1, y: 2, z: 3 }, { x: 4, y: 5, z: 6 }]);
-		console.log(promises);
-
 		const response = Array.from(
 			channels
-				.flatMap(async channel => await channel.messages.fetch({ limit: 10 }))
+				.flatMap(channel => channel.messages.cache)
+				// .flatMap(async channel => await channel.messages.fetch({ limit: 10 }))
 				.filter(msg => part.has(msg.member))
 				.reduce((acc, msg) => acc.set(msg.member, acc.get(msg.member) + 1), part))
 			.sort(([, n1], [, n2]) => n2 - n1)
