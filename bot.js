@@ -35,7 +35,7 @@ client.on('message', async message => {
 	match = message.content.match(/^!katex (.*?)$/);
 	if (match) {
 		commandName = 'katex';
-		args = message.match[1];
+		args = match[1];
 	}
 
 
