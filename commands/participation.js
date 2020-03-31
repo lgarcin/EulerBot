@@ -19,7 +19,7 @@ module.exports = {
 
 		const response = Array.from(
 			channels
-				.flatMap(channel => channel.cache)
+				.flatMap(channel => channel.messages.cache)
 				.reduce((acc, msg) => acc.set(msg.member, acc.get(msg.member) + 1), part))
 			.sort(([, n1], [, n2]) => n2 - n1)
 			.map(([member, nb_messages]) => member + ' ' + nb_messages)
