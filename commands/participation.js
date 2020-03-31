@@ -17,7 +17,7 @@ module.exports = {
 			members.filter(member => !member.user.bot).map(member => [member, 0]),
 		);
 
-		const promises = channels.flatMap(channel => ({ x: 1, y: 2, z: 3 }));
+		const promises = channels.flatMap(channel => [{ x: 1, y: 2, z: 3 }, { x: 4, y: 5, z: 6 }]);
 		console.log(promises);
 
 		const response = Array.from(
