@@ -17,7 +17,7 @@ module.exports = {
 				{},
 				...Object.values(files).map(file => JSON.parse(file.content)),
 			);
-			Users.setKatexOptions(katexOptions);
+			Users.setKatexOptions(message.member.user.id, katexOptions);
 			message
 				.reply('KaTeX Gist stored\n' + JSON.stringify(katexOptions))
 				.then(msg => msg.delete(5000));
