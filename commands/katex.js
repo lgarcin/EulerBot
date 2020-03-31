@@ -22,6 +22,6 @@ module.exports = {
 				.reply('KaTeX Gist stored\n' + JSON.stringify(katexOptions))
 				.then(msg => msg.delete(5000));
 		}
-		catch { message.reply('Wrong Gist id'); }
+		catch(e) { message.reply('Wrong Gist id'); message.reply(e); }
 	},
 };
