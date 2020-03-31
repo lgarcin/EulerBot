@@ -6,8 +6,8 @@ module.exports = {
 	async execute(message) {
 		console.log(Object.getOwnPropertyNames(await (message.mentions.members.size == 0
 			? message.guild.members
-			: message.mentions.members).fetch(),
-		));
+			: message.mentions.members).fetch().filter(member => !member.user.bot)),
+		);
 		const members = (message.mentions.members.size == 0
 			? message.guild.members
 			: message.mentions.members
