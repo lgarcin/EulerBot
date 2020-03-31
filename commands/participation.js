@@ -18,7 +18,7 @@ module.exports = {
 		);
 
 		Promise.allSettled(channels.map(channel => channel.messages.fetch({ limit: 10 })))
-			.then((results) => results.forEach((result) => console.log(result.status)));
+			.then((results) => results.forEach((result) => console.log(result)));
 
 		const response = Array.from(
 			channels
