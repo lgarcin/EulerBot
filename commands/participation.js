@@ -18,9 +18,7 @@ module.exports = {
 		);
 
 		const promises = channels.map(channel => [1, 2]);
-		console.log('OK');
-		const arr = await Promise.all(promises);
-		console.log(arr);
+		console.log(promises);
 
 		const response = Array.from(
 			channels
