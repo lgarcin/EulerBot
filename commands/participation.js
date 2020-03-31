@@ -24,7 +24,7 @@ module.exports = {
 			.filter(member => part.has(member))
 			.reduce((acc, member) => acc.set(member, acc.get(member) + 1), part))
 			.sort(([, n1], [, n2]) => n2 - n1)
-			.map(([member, nb_messages]) => member.user.username + ' ' + nb_messages)
+			.map(([member, nb_messages]) => `<@${member.user.id}> ${nb_messages}`)
 			.join('\n');
 
 		message.reply(response);
