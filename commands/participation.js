@@ -9,9 +9,9 @@ module.exports = {
 			: message.mentions.members
 		).fetch()).filter(member => !member.user.bot);
 		console.log(message.mentions.channels);
-		console.log(message.guild.channels);
+		console.log(message.guild.channels.cache);
 		const channels = (message.mentions.channels.size == 0
-			? message.guild.channels
+			? message.guild.channels.cache
 			: message.mentions.channels
 		).filter(channel => channel.type === 'text');
 
