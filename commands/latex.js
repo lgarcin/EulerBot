@@ -70,9 +70,9 @@ module.exports = {
 			katexOptions,
 		);
 		const sent = await message.reply(files);
-		files.files.forEach(file => fs.unlink(file.name, (err) => {
-			if (err) { throw err; }
-		}));
+		// files.files.forEach(file => fs.unlink(file.name, (err) => {
+		// 	if (err) { throw err; }
+		// }));
 		Replies.upsert({ message_id: sent.id, reply_to_id: message.id });
 	},
 };
