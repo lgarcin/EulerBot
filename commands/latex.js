@@ -26,7 +26,6 @@ const md2img = async (text, katexOptions) => {
 					.replace(/û/g, '\\^u'),
 			)})`,
 	);
-
 	result = md.render(result);
 	dom.window.document.querySelector('body').innerHTML = result;
 	const browser = await puppeteer.launch({
