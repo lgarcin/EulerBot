@@ -10,20 +10,18 @@ module.exports = {
 		exec(`python -c "${args}"`, async (error, stdout, stderr) => {
 			if (error) {
 				console.error(`exec error: ${error}`);
+				message.channel.send(`${error}`).then(msg => msg.delete({ timeout: 10000 }));
 				return;
 			}
 			const sent = await message.reply(
 				`
+**Code**
 \`\`\`python
 ${args}
 \`\`\`
-Stdout
+**Sortie**
 \`\`\`python
 ${stdout}
-\`\`\`
-Stderr
-\`\`\`python
-${stderr}
 \`\`\`
 `,
 			);
