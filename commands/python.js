@@ -1,3 +1,4 @@
+const { Replies } = require('../dbObjects.js');
 const { exec } = require('child_process');
 
 module.exports = {
@@ -6,12 +7,12 @@ module.exports = {
 	description: 'Execute python message',
 
 	execute(message, args) {
-		exec(`python -c "${args}"`, (error, stdout, stderr) => {
+		exec(`python -c "${args}"`, async (error, stdout, stderr) => {
 			if (error) {
 				console.error(`exec error: ${error}`);
 				return;
 			}
-			message.reply(
+			const sent = await message.reply(
 				`
 \`\`\`python
 ${args}
@@ -26,6 +27,7 @@ ${stderr}
 \`\`\`
 `,
 			);
+			Replies.upsert({ message_id: sent.id, reply_to_id: message.id });
 		});
 	},
 };

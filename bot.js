@@ -1,5 +1,6 @@
 const { readdirSync } = require('fs');
 const Discord = require('discord.js');
+const { Replies } = require('./dbObjects.js');
 
 const client = new Discord.Client();
 
@@ -16,7 +17,7 @@ client.on('ready', () => {
 	console.log('I am ready!');
 });
 
-client.on('message', async message => {
+const replyTo = async message => {
 	if (message.author.bot) return;
 
 	let commandName;
@@ -42,7 +43,6 @@ client.on('message', async message => {
 		commandName = 'participation';
 	}
 
-
 	if (!client.commands.has(commandName)) return;
 
 	const command = client.commands.get(commandName);
@@ -54,6 +54,26 @@ client.on('message', async message => {
 		console.error(error);
 		message.reply('there was an error trying to execute that command!');
 	}
+};
+
+const deleteReplies = async message => {
+	await Replies.findAll({ where: { reply_to_id: message.id } })
+		.then(replies => replies.forEach(reply => {
+			message.channel.messages.fetch(reply.message_id).then(msg => msg.delete());
+		}));
+	Replies.destroy({ where: { reply_to_id: message.id } });
+	Replies.destroy({ where: { message_id: message.id } });
+}
+
+client.on('message', async message => replyTo(message));
+
+client.on('messageDelete', async message => {
+	deleteReplies(message);
+});
+
+client.on('messageUpdate', async (oldMessage, newMessage) => {
+	replyTo(newMessage);
+	deleteReplies(newMessage);
 });
 
 client.login(process.env.BOT_TOKEN);
