@@ -105,3 +105,7 @@ dist
 
 # Python venv
 venv
+
+# Database
+*.sqlite
+*.sql
