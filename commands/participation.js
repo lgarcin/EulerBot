@@ -27,6 +27,6 @@ module.exports = {
 			.map(([member, nb_messages]) => `<@${member.user.id}> ${nb_messages}`)
 			.join('\n');
 
-		message.reply(response);
+		message.channel.send(response);
 	},
 };
