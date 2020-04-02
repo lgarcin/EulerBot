@@ -7,7 +7,7 @@ module.exports = {
 	description: 'Execute python message',
 
 	execute(message, args) {
-		exec(`python -c "${args}"`, async (error, stdout, stderr) => {
+		exec(`python -c "${args}"`, async (error, stdout) => {
 			if (error) {
 				console.error(`exec error: ${error}`);
 				message.channel.send(`${error}`).then(msg => msg.delete({ timeout: 10000 }));

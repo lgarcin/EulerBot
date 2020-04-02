@@ -9,7 +9,6 @@
   "dependencies": {
     "axios": "^0.19.2",
     "discord.js": "12.1.1",
-    "fs": "0.0.1-security",
     "jsdom": "^16.2.2",
     "markdown-it": "^10.0.0",
     "markdown-it-katexx": "^3.1.7",

@@ -63,7 +63,7 @@ const deleteReplies = async message => {
 		}));
 	Replies.destroy({ where: { reply_to_id: message.id } });
 	Replies.destroy({ where: { message_id: message.id } });
-}
+};
 
 client.on('message', async message => replyTo(message));
 
