@@ -15,15 +15,16 @@ import os
 
 i=0
 
-os.mkdir('/tmp/${message.id}')
+os.makedirs('/tmp/${message.id}', exist_ok=True)
 
 def f():
 	global i
-	matplotlib.pyplot.savefig('/tmp/${message.id}/'+str(i)+'.png')
+	filename = '/tmp/${message.id}/'+str(i)+'.png'
+	matplotlib.pyplot.savefig(filename)
 	matplotlib.pyplot.clf()
 	i+=1
 
-matplotlib.pyplot.show=f
+matplotlib.pyplot.show = f
 ${args}
 `;
 			const result = execSync('python -', { input: code }).toString();
