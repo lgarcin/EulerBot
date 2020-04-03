@@ -26,7 +26,6 @@ def f():
 matplotlib.pyplot.show=f
 ${args}
 `;
-			console.log(code);
 			const result = execSync('python -', { input: code }).toString();
 			const sent = await message.reply(
 				`

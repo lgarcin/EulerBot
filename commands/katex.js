@@ -8,6 +8,7 @@ module.exports = {
 
 	async execute(message, args) {
 		try {
+			console.log(message.author.id);
 			const {
 				data: { files },
 			} = await axios.get(
