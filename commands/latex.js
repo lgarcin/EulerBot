@@ -16,7 +16,6 @@ module.exports = {
 		const md2img = async (text, katexOptions, name) => {
 			const dom = new jsdom.JSDOM(readFileSync('assets/template_katex.html', 'utf8'));
 			md.use(mk, katexOptions);
-			console.log(katexOptions);
 			const regex = /\\begin{picture}.*?\\end{picture}|\\begin{tikzpicture}.*?\\end{tikzpicture}|\\usetikzlibrary{.*?}\s*\\begin{tikzpicture}.*?\\end{tikzpicture}|\\xymatrix{(?:[^)(]+|{(?:[^)(]+|{[^)(]*})*})*}/gms;
 			let result = text.replace(
 				regex,
@@ -67,8 +66,6 @@ module.exports = {
 		catch {
 			katexOptions = {};
 		}
-		console.log(message.author.id);
-		console.log(katexOptions);
 		const files = await md2img(
 			message.content,
 			katexOptions,
