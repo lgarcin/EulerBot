@@ -13,3 +13,4 @@ sequelize.import('models/Replies');
 const force = process.argv.includes('--force') || process.argv.includes('-f');
 
 sequelize.sync({ force });
+console.log('DB initialized');

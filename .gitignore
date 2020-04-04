@@ -107,5 +107,5 @@ dist
 venv
 
 # Database
-*.sqlite
-*.sql
+#*.sqlite
+#*.sql

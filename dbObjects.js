@@ -10,10 +10,4 @@ const sequelize = new Sequelize('database', 'username', 'password', {
 const Users = sequelize.import('models/Users');
 const Replies = sequelize.import('models/Replies');
 
-Replies.prototype.getReplies = reply_to_id => {
-	return Replies.findAll({
-		where: { reply_to_id },
-	});
-};
-
 module.exports = { Users, Replies };
