@@ -1,6 +1,8 @@
 # EulerBot
 
-Bot for typesetting **LaTeX** and **Python** programming.
+**Discord** bot for typesetting **LaTeX** and **Python** programming.
+
+[Invite Euler bot](https://discordapp.com/api/oauth2/authorize?client_id=694101689581699165&permissions=387136&scope=bot)
 
 ## LaTeX
 
