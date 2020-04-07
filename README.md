@@ -1,8 +1,8 @@
 # EulerBot
 
-Bot for typesetting $\LaTeX$ and **Python** programming.
+Bot for typesetting **LaTeX** and **Python** programming.
 
-## $\LaTeX$
+## LaTeX
 
 - The bot renders messages containg LaTeX code. Any message containing at least a pair of dollar signs `$` or `\begin` will be rendered as a PNG image.
 
