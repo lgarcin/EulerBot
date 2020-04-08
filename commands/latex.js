@@ -71,7 +71,7 @@ module.exports = {
 			katexOptions,
 			message.id,
 		);
-		const sent = await message.reply(files);
+		const sent = await message.channel.send(files);
 		Replies.upsert({ message_id: sent.id, reply_to_id: message.id });
 	},
 };

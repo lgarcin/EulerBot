@@ -28,7 +28,7 @@ matplotlib.pyplot.show = f
 ${args}
 `;
 			const result = execSync('python -', { input: code }).toString();
-			const sent = await message.reply(
+			const sent = await message.channel.send(
 				`
 **Code**
 \`\`\`python
