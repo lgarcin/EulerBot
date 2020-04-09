@@ -1,6 +1,7 @@
 const { Replies } = require('../dbObjects.js');
 const { execSync } = require('child_process');
 const { readdirSync } = require('fs');
+const replyWithReactionCollector = require('../utils/reply-with-reaction-collector');
 
 module.exports = {
 	name: 'python',
@@ -28,8 +29,7 @@ matplotlib.pyplot.show = f
 ${args}
 `;
 			const result = execSync('python -', { input: code }).toString();
-			const sent = await message.channel.send(
-				`
+			const content = `
 **Code**
 \`\`\`python
 ${args}
@@ -38,8 +38,22 @@ ${args}
 \`\`\`python
 ${result}
 \`\`\`
-`, { files: readdirSync(`/tmp/${message.id}/`).map(file => `/tmp/${message.id}/${file}`) });
-			Replies.upsert({ message_id: sent.id, reply_to_id: message.id });
+			`;
+			const files = { files: readdirSync(`/tmp/${message.id}/`).map(file => `/tmp/${message.id}/${file}`) };
+			replyWithReactionCollector(message, content, files);
+
+			// 			const sent = await message.channel.send(
+			// 				`
+			// **Code**
+			// \`\`\`python
+			// ${args}
+			// \`\`\`
+			// **Sortie**
+			// \`\`\`python
+			// ${result}
+			// \`\`\`
+			// `, { files: readdirSync(`/tmp/${message.id}/`).map(file => `/tmp/${message.id}/${file}`) });
+			// 			Replies.upsert({ message_id: sent.id, reply_to_id: message.id });
 		}
 		catch (e) {
 			message.reply(e.toString()).then(msg => msg.delete({ timeout: 10000 }));

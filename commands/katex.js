@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { Users } = require('../dbObjects.js');
+const { Users } = require('../dbObjects');
 
 module.exports = {
 	name: 'katex',

@@ -1,6 +1,6 @@
 const { readdirSync } = require('fs');
 const Discord = require('discord.js');
-const { Replies } = require('./dbObjects.js');
+const { Replies } = require('./dbObjects');
 
 const client = new Discord.Client();
 
