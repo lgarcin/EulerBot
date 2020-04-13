@@ -42,8 +42,6 @@ module.exports = async (text, katexOptions, name) => {
 		path: fileName,
 	});
 	await browser.close();
-	return {
-		files: [fileName],
-	};
+	return [fileName];
 };
 

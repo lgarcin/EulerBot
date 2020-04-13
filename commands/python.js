@@ -39,21 +39,9 @@ ${args}
 ${result}
 \`\`\`
 			`;
-			const files = { files: readdirSync(`/tmp/${message.id}/`).map(file => `/tmp/${message.id}/${file}`) };
-			replyWithReactionCollector(message, content, files);
+			const files = readdirSync(`/tmp/${message.id}/`).map(file => `/tmp/${message.id}/${file}`);
+			replyWithReactionCollector(message, content, { files, reply: message.author });
 
-			// 			const sent = await message.channel.send(
-			// 				`
-			// **Code**
-			// \`\`\`python
-			// ${args}
-			// \`\`\`
-			// **Sortie**
-			// \`\`\`python
-			// ${result}
-			// \`\`\`
-			// `, { files: readdirSync(`/tmp/${message.id}/`).map(file => `/tmp/${message.id}/${file}`) });
-			// 			Replies.upsert({ message_id: sent.id, reply_to_id: message.id });
 		}
 		catch (e) {
 			message.reply(e.toString()).then(msg => msg.delete({ timeout: 10000 }));
