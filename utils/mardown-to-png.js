@@ -5,8 +5,10 @@ const { readFileSync } = require('fs');
 const jsdom = require('jsdom');
 
 module.exports = async (text, katexOptions, name) => {
-	const dom = new jsdom.JSDOM(readFileSync('assets/template_katex.html', 'utf8'));
 	md.use(mk, katexOptions);
+
+	const dom = new jsdom.JSDOM(readFileSync('assets/template_katex.html', 'utf8'));
+
 	const regex = /\\begin{picture}.*?\\end{picture}|\\begin{tikzpicture}.*?\\end{tikzpicture}|\\usetikzlibrary{.*?}\s*\\begin{tikzpicture}.*?\\end{tikzpicture}|\\xymatrix{(?:[^)(]+|{(?:[^)(]+|{[^)(]*})*})*}/gms;
 	let result = text.replace(
 		regex,
@@ -25,6 +27,7 @@ module.exports = async (text, katexOptions, name) => {
 			)})`,
 	);
 	result = md.render(result);
+
 	dom.window.document.querySelector('body').innerHTML = result;
 	const browser = await puppeteer.launch({
 		args: ['--no-sandbox', '--disable-setuid-sandbox'],
