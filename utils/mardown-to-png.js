@@ -29,6 +29,7 @@ module.exports = async (text, katexOptions, name) => {
 	result = md.render(result);
 
 	dom.window.document.querySelector('body').innerHTML = result;
+
 	const browser = await puppeteer.launch({
 		args: ['--no-sandbox', '--disable-setuid-sandbox'],
 	});
@@ -38,7 +39,10 @@ module.exports = async (text, katexOptions, name) => {
 		height: 1080,
 		deviceScaleFactor: 3,
 	});
-	await page.setContent(dom.serialize());
+
+	await page.goto(`data:text/html;charset=UTF-8,${encodeURIComponent(dom.serialize())}`, { waitUntil: 'networkidle0' });
+
+	// await page.setContent(dom.serialize());
 	const content = await page.$('body');
 	const fileName = `/tmp/${name}.png`;
 	await content.screenshot({
