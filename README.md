@@ -12,7 +12,7 @@
 
 - The bot can also handle `picture` or `tikzpicture` environment with [upmath](https://upmath.me/).
 
-- LaTeX code is rendered by [KaTeX](https://katex.org/). You can specify [KaTeX options](https://katex.org/docs/options.html) with the command `!katex gistd id` where `gistid` is the id of a public gist containing a JSON object.
+- LaTeX code is rendered by [KaTeX](https://katex.org/). You can specify [KaTeX options](https://katex.org/docs/options.html) with the command `!katex <gistid>` where `<gistid>` is the id of a public gist containing a JSON object.
 
 - Example of a **Discord** message and the generated image.
 
