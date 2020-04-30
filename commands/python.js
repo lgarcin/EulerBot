@@ -1,4 +1,3 @@
-const { Replies } = require('../dbObjects.js');
 const { execSync } = require('child_process');
 const { readdirSync } = require('fs');
 const replyWithReactionCollector = require('../utils/reply-with-reaction-collector');
