@@ -12,6 +12,7 @@ module.exports = {
 			const code = `
 import matplotlib.pyplot
 import os
+import sys
 
 i=0
 
@@ -25,6 +26,10 @@ def f():
 	i+=1
 
 matplotlib.pyplot.show = f
+
+for module in "os", "requests", "subprocess", "socket":
+	sys.modules[module]=None
+
 ${args}
 `;
 			const result = execSync('python -', { input: code }).toString();
