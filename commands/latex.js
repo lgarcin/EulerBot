@@ -1,6 +1,7 @@
 const { Users } = require('../dbObjects');
 const markdownToImg = require('../utils/mardown-to-png');
 const replyWithReactionCollector = require('../utils/reply-with-reaction-collector');
+const filterMessages = require('../utils/filter-mentions.js');
 
 module.exports = {
 	name: 'latex',
@@ -20,10 +21,11 @@ module.exports = {
 			katexOptions = {};
 		}
 		const files = await markdownToImg(
-			message.content,
+			filterMessages(message.content),
 			katexOptions,
 			message.id,
 		);
-		await replyWithReactionCollector(message, { files, reply: message.author });
+		console.log(...message.mentions.users.values());
+		await replyWithReactionCollector(message, ...message.mentions.users.values(), { files, reply: message.author });
 	},
 };

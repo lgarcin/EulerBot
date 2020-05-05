@@ -7,7 +7,14 @@ module.exports = {
 	description: 'Retrieve katex options from gist',
 
 	async execute(message, args) {
-		if (args) {
+		if (args === 'info') {
+			try {
+				const katexOptions = (await Users.findOne({ where: { user_id: message.author.id } })).katexOptions;
+				message.reply(katexOptions);
+			}
+			catch { message.reply('No KaTeX options'); }
+		}
+		else {
 			try {
 				const {
 					data: { files },
@@ -24,13 +31,6 @@ module.exports = {
 					.then(msg => msg.delete({ timeout: 5000 }));
 			}
 			catch { message.reply('Wrong Gist id'); }
-		}
-		else {
-			try {
-				const katexOptions = (await Users.findOne({ where: { user_id: message.author.id } })).katexOptions;
-				message.reply(katexOptions);
-			}
-			catch { message.reply('No KaTeX options'); }
 		}
 	},
 };
