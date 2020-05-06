@@ -109,3 +109,5 @@ venv
 # Database
 *.sqlite
 *.sql
+
+.vscode

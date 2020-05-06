@@ -1,12 +1,14 @@
 const Sequelize = require('sequelize');
 
-const sequelize = new Sequelize('database', 'username', 'password', {
-	host: 'localhost',
-	dialect: 'sqlite',
-	logging: false,
-	storage: 'database.sqlite',
-});
-
+const sequelize = new Sequelize(process.env.DATABASE_URL);
+(async () => {
+	try {
+		await sequelize.authenticate();
+		console.log('Connection has been established successfully.');
+	} catch (error) {
+		console.error('Unable to connect to the database:', error);
+	}
+})();
 sequelize.import('models/Users');
 sequelize.import('models/Replies');
 
