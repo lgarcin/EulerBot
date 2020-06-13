@@ -28,6 +28,11 @@ const replyTo = async message => {
 		commandName = 'python';
 		args = match[1];
 	}
+	match = message.content.match(/^!test[\r\n\s]+(.*?)$/s);
+	if (match) {
+		commandName = 'test';
+		args = match[1];
+	}
 	match = message.content.match(/\$.*\$|\\begin|\\xymatrix/gm);
 	if (match) {
 		commandName = 'latex';

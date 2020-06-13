@@ -30,7 +30,9 @@ matplotlib.pyplot.show = f
 for module in "os", "requests", "subprocess", "socket":
 	sys.modules[module]=None
 
+exec("""
 ${args}
+""")
 `;
 			process.env.BOT_TOKEN = 'Try again';
 			const result = execSync('python -', { input: code }).toString();
