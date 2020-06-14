@@ -1,4 +1,4 @@
-const { writeFileSync } = require('fs');
+const { writeFileSync, mkdirSync } = require('fs');
 const replyWithReactionCollector = require('../utils/reply-with-reaction-collector');
 const AWS = require('aws-sdk');
 
@@ -36,6 +36,7 @@ ${args}
 ${body.text}
 \`\`\`
 							`;
+				mkdirSync(`/tmp/${message.id}`);
 				const files = body.images.map((image, index) => {
 					const filename = `/tmp/${message.id}/${index}.png`;
 					writeFileSync(filename, image, 'base64');
