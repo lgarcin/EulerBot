@@ -1,6 +1,7 @@
-const { execSync } = require('child_process');
-const { readdirSync } = require('fs');
+const { writeFileSync } = require('fs');
 const replyWithReactionCollector = require('../utils/reply-with-reaction-collector');
+const AWS = require('aws-sdk');
+
 
 module.exports = {
 	name: 'python',
@@ -8,51 +9,40 @@ module.exports = {
 	description: 'Execute python message',
 
 	async execute(message, args) {
-		try {
-			const code = `
-import matplotlib.pyplot
-import os
-import sys
-
-i=0
-
-os.makedirs('/tmp/${message.id}', exist_ok=True)
-
-def f():
-	global i
-	filename = '/tmp/${message.id}/'+str(i)+'.png'
-	matplotlib.pyplot.savefig(filename)
-	matplotlib.pyplot.clf()
-	i+=1
-
-matplotlib.pyplot.show = f
-
-for module in "os", "requests", "subprocess", "socket":
-	sys.modules[module]=None
-
-exec("""
-${args}
-""")
-`;
-			process.env.BOT_TOKEN = 'Try again';
-			const result = execSync('python -', { input: code }).toString();
-			const content = `
+		AWS.config.update({ accessKeyId: process.env.AWS_AccessKeyId, secretAccessKey: process.env.AWS_SecretAccessKey, region: 'eu-west-3' });
+		const lambda = new AWS.Lambda();
+		const params = {
+			FunctionName: 'euler',
+			Payload: JSON.stringify({
+				message_id: message.id,
+				code: args,
+			}),
+		};
+		lambda.invoke(params, (err, data) => {
+			if (err) {
+				message.reply(err.stack.toString()).then(msg => msg.delete({ timeout: 10000 }));
+				console.log(err, err.stack);
+			}
+			else {
+				const payload = JSON.parse(data.Payload);
+				const body = JSON.parse(payload.body);
+				const content = `
 **Code**
 \`\`\`python
 ${args}
 \`\`\`
 **Sortie**
 \`\`\`python
-${result}
+${body.text}
 \`\`\`
-			`;
-			const files = readdirSync(`/tmp/${message.id}/`).map(file => `/tmp/${message.id}/${file}`);
-			replyWithReactionCollector(message, content, { files, reply: message.author });
-
-		}
-		catch (e) {
-			message.reply(e.toString()).then(msg => msg.delete({ timeout: 10000 }));
-		}
-	}
-	,
+							`;
+				const files = body.images.map((image, index) => {
+					const filename = `/tmp/${message.id}/${index}.png`;
+					writeFileSync(filename, image, 'base64');
+					return filename;
+				});
+				replyWithReactionCollector(message, content, { files, reply: message.author });
+			}
+		});
+	},
 };
