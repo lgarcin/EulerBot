@@ -1,3 +1,5 @@
+if (process.env.NODE_ENV !== 'production') require('dotenv').config();
+
 const { readdirSync } = require('fs');
 const Discord = require('discord.js');
 const { Replies } = require('./dbObjects');
