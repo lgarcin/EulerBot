@@ -24,20 +24,24 @@ module.exports = {
 				console.log(err, err.stack);
 			}
 			else {
-				console.log(data);
 				const payload = JSON.parse(data.Payload);
 				try {
 					const body = JSON.parse(payload.body);
-					const content = `
+					let content = `
 **Code**
 \`\`\`python
 ${args}
 \`\`\`
+`;
+					if (body.text) {
+						content +=
+							`
 **Sortie**
 \`\`\`python
 ${body.text}
 \`\`\`
 							`;
+					}
 					mkdirSync(`/tmp/${message.id}`);
 					const files = body.images.map((image, index) => {
 						const filename = `/tmp/${message.id}/${index}.png`;
