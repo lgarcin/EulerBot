@@ -24,9 +24,11 @@ module.exports = {
 				console.log(err, err.stack);
 			}
 			else {
+				console.log(data);
 				const payload = JSON.parse(data.Payload);
-				const body = JSON.parse(payload.body);
-				const content = `
+				try {
+					const body = JSON.parse(payload.body);
+					const content = `
 **Code**
 \`\`\`python
 ${args}
@@ -36,13 +38,18 @@ ${args}
 ${body.text}
 \`\`\`
 							`;
-				mkdirSync(`/tmp/${message.id}`);
-				const files = body.images.map((image, index) => {
-					const filename = `/tmp/${message.id}/${index}.png`;
-					writeFileSync(filename, image, 'base64');
-					return filename;
-				});
-				replyWithReactionCollector(message, content, { files, reply: message.author });
+					mkdirSync(`/tmp/${message.id}`);
+					const files = body.images.map((image, index) => {
+						const filename = `/tmp/${message.id}/${index}.png`;
+						writeFileSync(filename, image, 'base64');
+						return filename;
+					});
+					replyWithReactionCollector(message, content, { files, reply: message.author });
+				}
+				catch {
+					const content = data.Payload;
+					replyWithReactionCollector(message, content, { reply: message.author });
+				}
 			}
 		});
 	},
