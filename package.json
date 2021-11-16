@@ -10,7 +10,7 @@
     "start": "node bot.js"
   },
   "dependencies": {
-    "aws-sdk": "2.696.0",
+    "aws-sdk": "2.814.0",
     "axios": "^0.21.1",
     "discord.js": "12.2.0",
     "jsdom": "^16.2.2",
