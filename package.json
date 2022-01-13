@@ -14,7 +14,7 @@
     "axios": "^0.21.2",
     "discord.js": "12.2.0",
     "jsdom": "^16.2.2",
-    "markdown-it": "^10.0.0",
+    "markdown-it": "^12.3.2",
     "markdown-it-katexx": "^3.1.7",
     "pg": "^8.0.3",
     "pg-hstore": "^2.3.3",
