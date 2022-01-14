@@ -1,11 +1,13 @@
-module.exports = (sequelize, DataTypes) => {
+const Sequelize = require('sequelize');
+
+module.exports = (sequelize) => {
 	return sequelize.define('users', {
 		user_id: {
-			type: DataTypes.STRING,
+			type: Sequelize.STRING,
 			primaryKey: true,
 		},
 		katexOptions: {
-			type: DataTypes.TEXT,
+			type: Sequelize.TEXT,
 			defaultValue: '{}',
 			allowNull: false,
 		},

@@ -1,12 +1,11 @@
 if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 
 const { readdirSync } = require('fs');
-const Discord = require('discord.js');
 const { Replies } = require('./dbObjects');
 
-const client = new Discord.Client();
-
-client.commands = new Discord.Collection();
+const { Client, Intents, Collection } = require('discord.js');
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS] });
+client.commands = new Collection();
 
 const commandFiles = readdirSync('./commands').filter(file => file.endsWith('.js'));
 
@@ -67,7 +66,9 @@ const deleteReplies = async message => {
 	Replies.destroy({ where: { message_id: message.id } });
 };
 
-client.on('message', async message => replyTo(message));
+client.on('messageCreate', async message => {
+	replyTo(message);
+});
 
 client.on('messageDelete', async message => {
 	deleteReplies(message);

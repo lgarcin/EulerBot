@@ -1,11 +1,13 @@
-module.exports = (sequelize, DataTypes) => {
+const Sequelize = require('sequelize');
+
+module.exports = (sequelize) => {
 	return sequelize.define('replies', {
 		message_id: {
-			type: DataTypes.STRING,
+			type: Sequelize.STRING,
 			primaryKey: true,
 		},
 		reply_to_id: {
-			type: DataTypes.STRING,
+			type: Sequelize.STRING,
 			allowNull: false,
 		},
 	}, {

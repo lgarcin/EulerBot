@@ -1,15 +1,25 @@
 const { Replies } = require('../dbObjects');
+const { MessageButton, MessageActionRow } = require('discord.js');
 
 module.exports = async (message, ...content) => {
-	const sent = await message.channel.send(...content);
+	const row = new MessageActionRow()
+		.addComponents(
+			new MessageButton()
+				.setCustomId('deletable')
+				.setLabel('🗑️')
+				.setStyle('DANGER')
+		);
+	const sent = await message.channel.send({ ...content[0], components: [row] });
 	await Replies.upsert({ message_id: sent.id, reply_to_id: message.id });
-	await sent.react('🗑️');
-	const reactionCollector = sent.createReactionCollector((reaction, user) => reaction.emoji.name === '🗑️' && user === message.member.user);
-	reactionCollector.on('collect', async () => {
-		await Replies.destroy({ where: { reply_to_id: message.id } });
-		await message.delete();
-		sent.reactions.cache.forEach(async reaction => {
-			if (reaction.emoji.name === '🗑️') await reaction.remove();
+
+	const filter = interaction => {
+		interaction.deferUpdate();
+		return interaction.user === message.member.user;
+	};
+	sent.awaitMessageComponent({ filter, componentType: 'BUTTON' })
+		.then(async interaction => {
+			await interaction.message.edit({ components: [] });
+			await Replies.destroy({ where: { reply_to_id: message.id } });
+			await message.delete();
 		});
-	});
 };
