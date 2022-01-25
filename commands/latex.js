@@ -25,7 +25,6 @@ module.exports = {
 			katexOptions,
 			message.id,
 		);
-		console.log(...message.mentions.users.values());
-		await replyWithReactionCollector(message, ...message.mentions.users.values(), { files, reply: message.author });
+		await replyWithReactionCollector(message, { files, reply: { messageReference: message } });
 	},
 };

@@ -9,6 +9,7 @@ module.exports = async (message, ...content) => {
 				.setLabel('🗑️')
 				.setStyle('DANGER')
 		);
+	console.log({ ...content[0], components: [row] });
 	const sent = await message.channel.send({ ...content[0], components: [row] });
 	await Replies.upsert({ message_id: sent.id, reply_to_id: message.id });
 

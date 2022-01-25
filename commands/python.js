@@ -48,11 +48,11 @@ ${body.text}
 						writeFileSync(filename, image, 'base64');
 						return filename;
 					});
-					replyWithReactionCollector(message, content, { files, reply: message.author });
+					replyWithReactionCollector(message, { content, files, reply: { messageReference: message } });
 				}
 				catch {
 					const content = data.Payload;
-					replyWithReactionCollector(message, content, { reply: message.author });
+					replyWithReactionCollector(message, { content, reply: { messageReference: message } });
 				}
 			}
 		});
