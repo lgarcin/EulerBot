@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "aws-sdk": "2.1354.0",
-    "axios": "^1.6.0",
+    "axios": "^1.7.4",
     "discord.js": "13.6.0",
     "jsdom": "^19.0.0",
     "markdown-it": "^12.3.2",
